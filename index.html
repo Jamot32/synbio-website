@@ -4,207 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Synbio Website</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #8798e8;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .calculator-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-    
-        .calculator-card h2 {
-            color: #4a5568;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #2d3748;
-        }
-
-        input[type="number"], select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
-        }
-
-        input[type="number"]:focus, select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .calculator-type {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .calc-option {
-            flex: 1;
-            padding: 10px;
-            background: #f7fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .calc-option.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        .calc-option:hover {
-            border-color: #a0aec0;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f0fff4;
-            border-left: 4px solid #38a169;
-            border-radius: 0 8px 8px 0;
-            display: none;
-        }
-
-        .result.show {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .result h3 {
-            color: #2f855a;
-            margin-bottom: 10px;
-        }
-
-        .formula {
-            background: #edf2f7;
-            padding: 10px;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-
-        .coming-soon {
-            opacity: 0.6;
-            position: relative;
-        }
-
-        .coming-soon::after {
-            content: "Coming Soon";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: bold;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .calculator-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
     <div class="container">
@@ -213,29 +14,92 @@
         </header>
 
         <div class="calculator-grid">
- 
+            <!--molarity-->
             <div class="calculator-card">
-                <h2>Molarity & Dilution Calculator</h2>
+                <h2>Molarity & Solution Calculator</h2>
                 
                 <div class="calculator-type">
-                    <div class="calc-option active" data-type="molarity">Calculate Molarity</div>
+                    <div class="calc-option active" data-type="molarity-from-mass">Molarity from Mass</div>
+                    <div class="calc-option" data-type="mass-from-molarity">Mass from Molarity</div>
+                    <div class="calc-option" data-type="multi-solute">Multi-Solute Solution</div>
                     <div class="calc-option" data-type="dilution">Dilution</div>
                 </div>
-                <div id="molarity-calc">
+
+                <!--mass to mol-->
+                <div id="molarity-from-mass-calc">
                     <div class="input-group">
-                        <label for="moles">Number of Moles (mol)</label>
-                        <input type="number" id="moles" step="any" placeholder="Enter moles of solute">
+                        <label for="mass">Mass of solute (g)</label>
+                        <input type="number" id="mass" step="any" placeholder="Enter mass in grams">
                     </div>
                     
                     <div class="input-group">
-                        <label for="volume-l">Volume (L)</label>
-                        <input type="number" id="volume-l" step="any" placeholder="Enter volume in liters">
+                        <label for="compound-select">Compound</label>
+                        <div class="compound-selector">
+                            <select id="compound-select">
+                                <option value="">Select compound or enter manually</option>
+                            </select>
+                            <button type="button" class="add-compound-btn" onclick="openModal()">+ Add</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="molecular-weight">Molecular Weight (g/mol)</label>
+                        <input type="number" id="molecular-weight" step="any" placeholder="Enter molecular weight">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="volume-mass">Volume (L)</label>
+                        <input type="number" id="volume-mass" step="any" placeholder="Enter volume in liters">
                     </div>
                 </div>
 
+                <!--mol to mass -->
+                <div id="mass-from-molarity-calc" style="display: none;">
+                    <div class="input-group">
+                        <label for="molarity-mass">Molarity (M)</label>
+                        <input type="number" id="molarity-mass" step="any" placeholder="Enter molarity">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="compound-select-mass">Compound</label>
+                        <div class="compound-selector">
+                            <select id="compound-select-mass">
+                                <option value="">Select compound or enter manually</option>
+                            </select>
+                            <button type="button" class="add-compound-btn" onclick="openModal()">+ Add</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="molecular-weight-mass">Molecular Weight (g/mol)</label>
+                        <input type="number" id="molecular-weight-mass" step="any" placeholder="Enter molecular weight">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="volume-molarity">Volume (L)</label>
+                        <input type="number" id="volume-molarity" step="any" placeholder="Enter volume in liters">
+                    </div>
+                </div>
+
+                <!--multi-solute solutions-->
+                <div id="multi-solute-calc" style="display: none;">
+                    <div class="input-group">
+                        <label for="total-volume">Total Solution Volume (L)</label>
+                        <input type="number" id="total-volume" step="any" placeholder="Enter total volume in liters">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Solutes</label>
+                        <div class="solute-list" id="solute-list">
+                        </div>
+                        <button type="button" class="add-solute-btn" onclick="addSolute()">+ Add Solute</button>
+                    </div>
+                </div>
+
+                <!--dilution-->
                 <div id="dilution-calc" style="display: none;">
                     <div class="input-group">
-                        <label for="c1">Initial Concentration (M₁)</label>
+                        <label for="c1">Initial Concentration (C₁)</label>
                         <input type="number" id="c1" step="any" placeholder="Stock concentration">
                     </div>
                     
@@ -245,7 +109,7 @@
                     </div>
                     
                     <div class="input-group">
-                        <label for="c2">Final Concentration (M₂)</label>
+                        <label for="c2">Final Concentration (C₂)</label>
                         <input type="number" id="c2" step="any" placeholder="Desired final concentration">
                     </div>
                     
@@ -254,15 +118,39 @@
                         <input type="number" id="v2" step="any" placeholder="Total final volume">
                     </div>
                 </div>
-                <button onclick="calculateMolarity()">Calculate</button>
 
-                <div id="molarity-result" class="result">
+                <button onclick="calculate()">Calculate</button>
+
+                <div id="result" class="result">
                     <h3>Result:</h3>
-                    <div id="molarity-output"></div>
-                    <div class="formula" id="molarity-formula"></div>
+                    <div id="output"></div>
+                    <div class="formula" id="formula"></div>
                 </div>
             </div>
+        </div>
+    </div>
 
+    <!--add compounds (modal class)-->
+    <div id="compoundModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Manage Compounds</h3>
+            
+            <div class="input-group">
+                <label for="new-compound-name">Compound Name</label>
+                <input type="text" id="new-compound-name" placeholder="e.g., NaCl, Glucose, EDTA">
+            </div>
+            
+            <div class="input-group">
+                <label for="new-molecular-weight">Molecular Weight (g/mol)</label>
+                <input type="number" id="new-molecular-weight" step="any" placeholder="e.g., 58.44">
+            </div>
+            
+            <button onclick="addCompound()">Add Compound</button>
+
+            <div class="saved-compounds" id="saved-compounds">
+                <p style="text-align: center; color: #6c757d; padding: 20px;">No saved compounds yet</p>
+            </div>
         </div>
     </div>
 
