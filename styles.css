@@ -132,6 +132,7 @@
 
         .compound-selector select {
             flex: 1;
+            min-width: 0; 
         }
 
         .add-compound-btn {
@@ -143,6 +144,7 @@
             cursor: pointer;
             font-size: 14px;
             white-space: nowrap;
+            flex-shrink: 0; /* button dont shrink pls */
         }
 
         .add-compound-btn:hover {
@@ -278,7 +280,7 @@
             margin-bottom: 8px;
             border-left: 3px solid #28a745;
         }
-        /*modal stuff*/
+
         .modal {
             display: none;
             position: fixed;
@@ -371,6 +373,10 @@
                 align-items: stretch;
             }
 
+            .compound-selector select {
+                flex: 1;
+                min-width: 0;
+            }
             .solute-inputs {
                 grid-template-columns: 1fr;
             }
@@ -379,5 +385,25 @@
                 margin: 10% auto;
                 width: 95%;
                 padding: 20px;
+            }
+        }
+        /*for full screen dropdown*/
+        @media (min-width: 1200px) {
+            .compound-selector {
+                display: flex;
+                gap: 8px;
+                align-items: flex-end;
+                width: 100%;
+            }
+
+            .compound-selector select {
+                flex: 1;
+                min-width: 200px; /* min width */
+                max-width: calc(100% - 80px); /* button on the side */
+            }
+
+            .add-compound-btn {
+                flex-shrink: 0;
+                width: 70px;
             }
         }

@@ -4,123 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Synbio Website</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>synbio website</h1>
+            <h1>Synbio Website</h1>
         </header>
-
+        
         <div class="calculator-grid">
-            <!--molarity-->
+            <!-- calculator card -->
             <div class="calculator-card">
-                <h2>Molarity & Solution Calculator</h2>
-                
+                <h2>Molarity & Dilution Calculator</h2>
                 <div class="calculator-type">
-                    <div class="calc-option active" data-type="molarity-from-mass">Molarity from Mass</div>
-                    <div class="calc-option" data-type="mass-from-molarity">Mass from Molarity</div>
-                    <div class="calc-option" data-type="multi-solute">Multi-Solute Solution</div>
+                    <div class="calc-option active" data-type="molarity-from-mass">Mass → Molarity</div>
+                    <div class="calc-option" data-type="mass-from-molarity">Molarity → Mass</div>
+                    <div class="calc-option" data-type="multi-solute">Multi-Solute</div>
                     <div class="calc-option" data-type="dilution">Dilution</div>
                 </div>
-
-                <!--mass to mol-->
+                
+                <!-- mass to molarity -->
                 <div id="molarity-from-mass-calc">
                     <div class="input-group">
-                        <label for="mass">Mass of solute (g)</label>
-                        <input type="number" id="mass" step="any" placeholder="Enter mass in grams">
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="compound-select">Compound</label>
+                        <label>Compound</label>
                         <div class="compound-selector">
                             <select id="compound-select">
                                 <option value="">Select compound or enter manually</option>
                             </select>
-                            <button type="button" class="add-compound-btn" onclick="openModal()">+ Add</button>
+                            <button type="button" class="add-compound-btn" onclick="openModal()">Add</button>
                         </div>
                     </div>
-
+                    <div class="input-group">
+                        <label for="mass">Mass (g)</label>
+                        <input type="number" id="mass" step="any" placeholder="Enter mass in grams">
+                    </div>
                     <div class="input-group">
                         <label for="molecular-weight">Molecular Weight (g/mol)</label>
-                        <input type="number" id="molecular-weight" step="any" placeholder="Enter molecular weight">
+                        <input type="number" id="molecular-weight" step="any" placeholder="Auto-filled or enter manually">
                     </div>
-
                     <div class="input-group">
                         <label for="volume-mass">Volume (L)</label>
                         <input type="number" id="volume-mass" step="any" placeholder="Enter volume in liters">
                     </div>
                 </div>
-
-                <!--mol to mass -->
+                
+                <!-- molarity to mass -->
                 <div id="mass-from-molarity-calc" style="display: none;">
                     <div class="input-group">
-                        <label for="molarity-mass">Molarity (M)</label>
-                        <input type="number" id="molarity-mass" step="any" placeholder="Enter molarity">
-                    </div>
-                    
-                    <div class="input-group">
-                        <label for="compound-select-mass">Compound</label>
+                        <label>Compound</label>
                         <div class="compound-selector">
                             <select id="compound-select-mass">
                                 <option value="">Select compound or enter manually</option>
                             </select>
-                            <button type="button" class="add-compound-btn" onclick="openModal()">+ Add</button>
+                            <button type="button" class="add-compound-btn" onclick="openModal()">Add</button>
                         </div>
                     </div>
-
+                    <div class="input-group">
+                        <label for="molarity-mass">Desired Molarity (M)</label>
+                        <input type="number" id="molarity-mass" step="any" placeholder="Enter desired molarity">
+                    </div>
                     <div class="input-group">
                         <label for="molecular-weight-mass">Molecular Weight (g/mol)</label>
-                        <input type="number" id="molecular-weight-mass" step="any" placeholder="Enter molecular weight">
+                        <input type="number" id="molecular-weight-mass" step="any" placeholder="Auto-filled or enter manually">
                     </div>
-
                     <div class="input-group">
                         <label for="volume-molarity">Volume (L)</label>
                         <input type="number" id="volume-molarity" step="any" placeholder="Enter volume in liters">
                     </div>
                 </div>
-
-                <!--multi-solute solutions-->
+                
+                <!-- multi-solute -->
                 <div id="multi-solute-calc" style="display: none;">
                     <div class="input-group">
                         <label for="total-volume">Total Solution Volume (L)</label>
-                        <input type="number" id="total-volume" step="any" placeholder="Enter total volume in liters">
-                    </div>
-
-                    <div class="input-group">
-                        <label>Solutes</label>
-                        <div class="solute-list" id="solute-list">
-                        </div>
-                        <button type="button" class="add-solute-btn" onclick="addSolute()">+ Add Solute</button>
-                    </div>
-                </div>
-
-                <!--dilution-->
-                <div id="dilution-calc" style="display: none;">
-                    <div class="input-group">
-                        <label for="c1">Initial Concentration (C₁)</label>
-                        <input type="number" id="c1" step="any" placeholder="Stock concentration">
+                        <input type="number" id="total-volume" step="any" placeholder="Enter total volume">
                     </div>
                     
+                    <button type="button" class="add-solute-btn" onclick="addSolute()">Add Solute</button>
+                    
+                    <div class="solute-list" id="solute-list">
+                    </div>
+                </div>
+                
+                <!-- dilution -->
+                <div id="dilution-calc" style="display: none;">
+                    <div class="input-group">
+                        <label for="c1">Initial Concentration (C₁) - M</label>
+                        <input type="number" id="c1" step="any" placeholder="Stock concentration">
+                    </div>
                     <div class="input-group">
                         <label for="v1">Initial Volume (V₁) - mL</label>
                         <input type="number" id="v1" step="any" placeholder="Volume of stock needed">
                     </div>
-                    
                     <div class="input-group">
-                        <label for="c2">Final Concentration (C₂)</label>
+                        <label for="c2">Final Concentration (C₂) - M</label>
                         <input type="number" id="c2" step="any" placeholder="Desired final concentration">
                     </div>
-                    
                     <div class="input-group">
                         <label for="v2">Final Volume (V₂) - mL</label>
                         <input type="number" id="v2" step="any" placeholder="Total final volume">
                     </div>
+                    <p style="font-size: 13px; color: #6c757d; margin-top: 10px;">
+                        <em>Leave one field empty to calculate it</em>
+                    </p>
                 </div>
-
+                
                 <button onclick="calculate()">Calculate</button>
-
+                
                 <div id="result" class="result">
                     <h3>Result:</h3>
                     <div id="output"></div>
@@ -129,30 +118,25 @@
             </div>
         </div>
     </div>
-
-    <!--add compounds (modal class)-->
+    
+    <!-- ompound modal -->
     <div id="compoundModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Manage Compounds</h3>
-            
+            <h3>Add New Compound</h3>
             <div class="input-group">
                 <label for="new-compound-name">Compound Name</label>
-                <input type="text" id="new-compound-name" placeholder="e.g., NaCl, Glucose, EDTA">
+                <input type="text" id="new-compound-name" placeholder="e.g., NaCl">
             </div>
-            
             <div class="input-group">
                 <label for="new-molecular-weight">Molecular Weight (g/mol)</label>
                 <input type="number" id="new-molecular-weight" step="any" placeholder="e.g., 58.44">
             </div>
-            
             <button onclick="addCompound()">Add Compound</button>
-
+            
             <div class="saved-compounds" id="saved-compounds">
-                <p style="text-align: center; color: #6c757d; padding: 20px;">No saved compounds yet</p>
             </div>
         </div>
     </div>
-
 </body>
 </html>
