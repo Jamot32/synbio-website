@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Synbio Website</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
     <div class="container">
@@ -12,7 +15,7 @@
         </header>
         
         <div class="calculator-grid">
-            <!-- calculator card -->
+            <!-- molarity & dilution calculator card -->
             <div class="calculator-card">
                 <h2>Molarity & Dilution Calculator</h2>
                 <div class="calculator-type">
@@ -108,18 +111,58 @@
                     </p>
                 </div>
                 
-                <button onclick="calculate()">Calculate</button>
+                <button onclick="calculateMolarity()">Calculate</button>
                 
-                <div id="result" class="result">
+                <div id="molarity-result" class="result">
                     <h3>Result:</h3>
-                    <div id="output"></div>
-                    <div class="formula" id="formula"></div>
+                    <div id="molarity-output"></div>
+                    <div class="formula" id="molarity-formula"></div>
+                </div>
+            </div>
+
+            <!-- dna/protein converter card -->
+            <div class="calculator-card">
+                <h2>DNA ⟷ Protein Converter</h2>
+                <div class="calculator-type">
+                    <div class="calc-option active" data-type="dna-to-protein" data-card="sequence">DNA → Protein</div>
+                    <div class="calc-option" data-type="protein-to-dna" data-card="sequence">Protein → DNA</div>
+                </div>
+
+                <!-- dna to protein -->
+                <div id="dna-to-protein-calc">
+                    <div class="input-group">
+                        <label for="dna-sequence">DNA Sequence</label>
+                        <textarea id="dna-sequence" placeholder="Enter DNA sequence (ATCG...)"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="reading-frame">Reading Frame</label>
+                        <select id="reading-frame">
+                            <option value="1">Frame +1</option>
+                            <option value="2">Frame +2</option>
+                            <option value="3">Frame +3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- dna to protein -->
+                <div id="protein-to-dna-calc" style="display: none;">
+                    <div class="input-group">
+                        <label for="protein-sequence">Protein Sequence</label>
+                        <textarea id="protein-sequence" placeholder="Enter amino acid sequence (single letter codes: ACDEFG...)"></textarea>
+                    </div>
+                </div>
+
+                <button onclick="calculateSequence()">Convert</button>
+
+                <div id="sequence-result" class="result">
+                    <h3>Results:</h3>
+                    <div id="sequence-output"></div>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- ompound modal -->
+    <!-- add compound modal -->
     <div id="compoundModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
