@@ -159,9 +159,95 @@
                     <div id="sequence-output"></div>
                 </div>
             </div>
+
+                        <!-- gibson assembly card -->
+             <div class="calculator-card">
+    <h2>Gibson Assembly Calculator</h2>
+    <div class="calculator-type">
+        <div class="calc-option active" data-type="gibson-basic">Basic Assembly</div>
+        <div class="calc-option" data-type="gibson-overlap">Overlap Designer</div>
+        <div class="calc-option" data-type="gibson-protocol">Protocol Generator</div>
+    </div>
+
+    <!-- asic gibson -->
+    <div id="gibson-basic-calc">
+        <div class="input-group">
+            <label for="vector-name">Vector Name (optional)</label>
+            <input type="text" id="vector-name" placeholder="e.g., pET28a">
+        </div>
+        <div class="input-group">
+            <label for="vector-length">Vector Length (bp)</label>
+            <input type="number" id="vector-length" step="any" placeholder="e.g., 5369" min="100">
+        </div>
+        <div class="input-group">
+            <label for="vector-concentration">Vector Concentration (ng/μL)</label>
+            <input type="number" id="vector-concentration" step="any" placeholder="e.g., 45" min="1">
+        </div>
+
+        <div class="gibson-settings">
+            <div class="input-group">
+                <label for="reaction-volume">Reaction Volume (μL)</label>
+                <input type="number" id="reaction-volume" value="10" min="5" max="20" step="0.1">
+            </div>
+            <div class="input-group">
+                <label for="insert-vector-ratio">Insert:Vector Molar Ratio</label>
+                <select id="insert-vector-ratio">
+                    <option value="2">2:1</option>
+                    <option value="3" selected>3:1</option>
+                    <option value="4">4:1</option>
+                    <option value="5">5:1</option>
+                    <option value="6">6:1</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="button" class="add-fragment-btn" onclick="addGibsonFragment()">Add Fragment</button>
+
+        <div class="fragment-list" id="gibson-fragment-list">
+        </div>
+    </div>
+
+    <!-- overlap design -->
+    <div id="gibson-overlap-calc" style="display: none;">
+        <div class="input-group">
+            <label for="overlap-sequence">Overlap Sequence</label>
+            <textarea id="overlap-sequence" placeholder="Enter DNA overlap sequence (15-40 bp recommended)"></textarea>
+        </div>
+        <div class="overlap-analysis" id="overlap-analysis">
+            <!-- results -->
+        </div>
+    </div>
+
+    <!-- for protocol -->
+    <div id="gibson-protocol-calc" style="display: none;">
+        <div class="input-group">
+            <label for="assembly-kit">Assembly Kit</label>
+            <select id="assembly-kit">
+                <option value="nebuilder">NEBuilder HiFi DNA Assembly</option>
+                <option value="homemade">Homemade Gibson Mix</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="incubation-time">Incubation Time (minutes)</label>
+            <input type="number" id="incubation-time" value="60" min="15" max="120">
+        </div>
+        <div class="protocol-output" id="protocol-output">
+            <!-- protocol output -->
+        </div>
+    </div>
+
+    <button onclick="calculateGibson()">Calculate</button>
+
+    <div id="gibson-result" class="result">
+        <h3>Results:</h3>
+        <div id="gibson-output"></div>
+        <div class="formula" id="gibson-formula"></div>
+    </div>
+</div>
         </div>
     </div>
     
+
     <!-- add compound modal -->
     <div id="compoundModal" class="modal">
         <div class="modal-content">
