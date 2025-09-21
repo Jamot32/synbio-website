@@ -1110,6 +1110,37 @@ function setupGibsonInputHandlers() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    // code
+    updateCompoundSelectors();
+    updateSavedCompoundsList();
+    setupCompoundSelectHandlers();
     setupGibsonInputHandlers();
+    setupCalculatorTabs(); // <-- Add this
+    setupSequenceCalculatorTabs(); // <-- Add this
 });
+
+// ...existing code...
+
+function setupCalculatorTabs() {
+    // For each calculator card, set up tab switching
+    document.querySelectorAll('.calculator-card').forEach(card => {
+        const options = card.querySelectorAll('.calc-option');
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove active from all tabs in this card
+                options.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+
+                // Hide all calculators in this card
+                card.querySelectorAll('[id$="-calc"]').forEach(calc => calc.style.display = 'none');
+                // Show the selected calculator
+                const type = this.dataset.type;
+                const targetCalc = card.querySelector(`#${type}-calc`);
+                if (targetCalc) targetCalc.style.display = 'block';
+
+                // Hide result in this card
+                const result = card.querySelector('.result');
+                if (result) result.classList.remove('show');
+            });
+        });
+    });
+}
