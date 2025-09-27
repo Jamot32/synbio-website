@@ -705,3 +705,732 @@
         grid-template-columns: 1fr;
     }
 }
+
+
+
+
+
+
+/* standard curve */
+.curve-input-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.coordinate-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 15px;
+}
+
+.coordinate-list {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 15px;
+    background: white;
+    margin-bottom: 20px;
+    min-height: 100px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.coordinate-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    border-left: 3px solid #17a2b8;
+}
+
+.coordinate-item:last-child {
+    margin-bottom: 0;
+}
+
+.graph-canvas {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    margin: 20px 0;
+    background: white;
+    width: 100%;
+    height: 300px;
+}
+
+.interpolation-section {
+    background: #e7f3ff;
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 20px;
+    border-left: 4px solid #007bff;
+}
+
+.equation-display {
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 15px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+    color: #2c3e50;
+}
+
+.stats-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.stat-box {
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+
+
+
+
+
+
+
+/* pcr */
+.pcr-sections {
+    display: grid;
+    gap: 20px;
+}
+
+.primer-design-section {
+    background: #f0f8f0;
+    padding: 20px;
+    border-radius: 6px;
+    border-left: 4px solid #28a745;
+}
+
+.primer-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.primer-info {
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+.primer-sequence {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    margin: 8px 0;
+    word-break: break-all;
+}
+
+.melting-temp-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.temp-stat {
+    background: white;
+    padding: 12px;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+
+.temp-value {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 4px;
+}
+
+.temp-label {
+    font-size: 0.85em;
+    color: #6c757d;
+}
+
+.pcr-conditions {
+    background: #fff8e1;
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 20px;
+    border-left: 4px solid #ffc107;
+}
+
+.conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.condition-item {
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+.condition-value {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+
+
+
+
+
+
+/* restriction enzyme */
+.enzyme-search-section {
+    background: #fff0f5;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid #e91e63;
+}
+
+.enzyme-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.sequence-view {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 20px 0;
+    min-height: 150px;
+}
+
+.sequence-display {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 2;
+    word-break: break-all;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.cut-site {
+    background: #ffeb3b;
+    padding: 2px 4px;
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+}
+
+.cut-site:hover {
+    background: #ffc107;
+}
+
+.enzyme-results-table {
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.enzyme-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.enzyme-table th {
+    background: #2c3e50;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.enzyme-table td {
+    padding: 12px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.enzyme-table tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.enzyme-table tr:hover {
+    background: #e9ecef;
+}
+
+.cut-count {
+    background: #28a745;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.recognition-site {
+    font-family: 'Courier New', monospace;
+    background: #f8f9fa;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .coordinate-inputs {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .primer-pair {
+        grid-template-columns: 1fr;
+    }
+
+    .enzyme-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .conditions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .melting-temp-display {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-display {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-display,
+    .melting-temp-display {
+        grid-template-columns: 1fr;
+    }
+
+    .enzyme-table {
+        font-size: 12px;
+    }
+
+    .enzyme-table th,
+    .enzyme-table td {
+        padding: 8px 6px;
+    }
+}
+
+/* standard curve */
+.curve-input-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.coordinate-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 15px;
+}
+
+.coordinate-list {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 15px;
+    background: white;
+    margin-bottom: 20px;
+    min-height: 100px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.coordinate-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    border-left: 3px solid #17a2b8;
+}
+
+.coordinate-item:last-child {
+    margin-bottom: 0;
+}
+
+.graph-canvas {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    margin: 20px 0;
+    background: white;
+    width: 100%;
+    height: 300px;
+}
+
+.interpolation-section {
+    background: #e7f3ff;
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 20px;
+    border-left: 4px solid #007bff;
+}
+
+.equation-display {
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 15px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+    color: #2c3e50;
+}
+
+.stats-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.stat-box {
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+
+/* pcr calculator */
+.pcr-sections {
+    display: grid;
+    gap: 20px;
+}
+
+.primer-design-section {
+    background: #f0f8f0;
+    padding: 20px;
+    border-radius: 6px;
+    border-left: 4px solid #28a745;
+}
+
+.primer-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.primer-info {
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+.primer-sequence {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    margin: 8px 0;
+    word-break: break-all;
+}
+
+.melting-temp-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.temp-stat {
+    background: white;
+    padding: 12px;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+
+.temp-value {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 4px;
+}
+
+.temp-label {
+    font-size: 0.85em;
+    color: #6c757d;
+}
+
+.pcr-conditions {
+    background: #fff8e1;
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 20px;
+    border-left: 4px solid #ffc107;
+}
+
+.conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.condition-item {
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+.condition-value {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+/* restriction enzyme */
+.enzyme-search-section {
+    background: #fff0f5;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid #e91e63;
+}
+
+.enzyme-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.sequence-view {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 20px 0;
+    min-height: 150px;
+}
+
+.sequence-display {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 2;
+    word-break: break-all;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.cut-site {
+    background: #ffeb3b;
+    padding: 2px 4px;
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+}
+
+.cut-site:hover {
+    background: #ffc107;
+}
+
+.enzyme-results-table {
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.enzyme-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.enzyme-table th {
+    background: #2c3e50;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.enzyme-table td {
+    padding: 12px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.enzyme-table tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.enzyme-table tr:hover {
+    background: #e9ecef;
+}
+
+.cut-count {
+    background: #28a745;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.recognition-site {
+    font-family: 'Courier New', monospace;
+    background: #f8f9fa;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.add-btn {
+    background: #28a745;
+    width: auto;
+    padding: 10px 15px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.add-btn:hover {
+    background: #218838;
+}
+
+.info-box {
+    background: #d1ecf1;
+    border: 1px solid #bee5eb;
+    border-radius: 4px;
+    padding: 12px;
+    margin: 15px 0;
+    color: #0c5460;
+    font-size: 0.9em;
+}
+
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2c3e50;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s;
+    z-index: 1000;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 768px) {
+    .coordinate-inputs {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .primer-pair {
+        grid-template-columns: 1fr;
+    }
+
+    .enzyme-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .conditions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .melting-temp-display {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-display {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-display,
+    .melting-temp-display {
+        grid-template-columns: 1fr;
+    }
+
+    .enzyme-table {
+        font-size: 12px;
+    }
+
+    .enzyme-table th,
+    .enzyme-table td {
+        padding: 8px 6px;
+    }
+}
