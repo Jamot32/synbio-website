@@ -266,6 +266,256 @@
             <div class="saved-compounds" id="saved-compounds">
             </div>
         </div>
+
+        </div>
+
+
+
+
+
+
+        
+        <!-- standard curve -->   
+<div class="calculator-card">
+    <h2>Standard Curve Generator</h2>
+    <div class="calculator-type">
+        <div class="calc-option active" data-type="linear-curve">Linear Curve</div>
+        <div class="calc-option" data-type="interpolation">Interpolation</div>
+    </div>
+
+    <div class="curve-input-section">
+        <h4 style="margin-bottom: 15px; color: #2c3e50;">Data Points</h4>
+        <div class="coordinate-inputs">
+            <div class="input-group" style="margin-bottom: 0;">
+                <label>Concentration</label>
+                <input type="number" id="x-coordinate" placeholder="Enter X value" step="any">
+            </div>
+            <div class="input-group" style="margin-bottom: 0;">
+                <label>Absorbance</label>
+                <input type="number" id="y-coordinate" placeholder="Enter Y value" step="any">
+            </div>
+            <button class="add-btn" onclick="addDataPoint()">Add Point</button>
+        </div>
+        
+        <div class="coordinate-list" id="coordinate-list">
+            <div style="text-align: center; color: #6c757d; font-style: italic;">No data points added yet</div>
+        </div>
+    </div>
+
+    <canvas class="graph-canvas" id="curve-canvas"></canvas>
+
+    <div class="stats-display">
+        <div class="stat-box">
+            <div class="stat-value" id="r-squared">--</div>
+            <div class="stat-label">R² Value</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value" id="slope">--</div>
+            <div class="stat-label">Slope</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value" id="intercept">--</div>
+            <div class="stat-label">Y-Intercept</div>
+        </div>
+    </div>
+
+    <div class="equation-display" id="equation-display">
+        Add data points to generate equation
+    </div>
+
+    <div class="interpolation-section">
+        <h4 style="margin-bottom: 15px; color: #2c3e50;">Interpolation</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="input-group">
+                <label>Known Concentration</label>
+                <input type="number" id="known-x" placeholder="Enter X to find Y" step="any">
+            </div>
+            <div class="input-group">
+                <label>Known Absorbance</label>
+                <input type="number" id="known-y" placeholder="Enter Y to find X" step="any">
+            </div>
+        </div>
+        <div id="interpolation-result" style="margin-top: 15px; font-weight: 600;"></div>
+    </div>
+
+    <button onclick="calculateCurve()">Generate Curve</button>
+    <div id="curve-result" class="result"></div>
+</div>
+
+<!-- pcr calculator -->
+<div class="calculator-card">
+    <h2>PCR Calculator</h2>
+    <div class="calculator-type">
+        <div class="calc-option active" data-type="primer-design">Primer Design</div>
+        <div class="calc-option" data-type="pcr-conditions">PCR Conditions</div>
+    </div>
+
+    <div id="primer-design-calc" class="pcr-sections">
+        <div class="input-group">
+            <label for="target-sequence">Target DNA Sequence</label>
+            <textarea id="target-sequence" placeholder="Enter your target DNA sequence (5' to 3')"></textarea>
+        </div>
+
+        <div class="primer-design-section">
+            <h4 style="margin-bottom: 15px; color: #2c3e50;">Primer Design Settings</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                <div class="input-group">
+                    <label>Primer Length</label>
+                    <select id="primer-length">
+                        <option value="18-22">18-22 bp</option>
+                        <option value="20-24" selected>20-24 bp</option>
+                        <option value="22-26">22-26 bp</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Target Tm (°C)</label>
+                    <input type="number" id="target-tm" value="60" min="50" max="70" step="1">
+                </div>
+                <div class="input-group">
+                    <label>GC Content (%)</label>
+                    <select id="gc-content">
+                        <option value="40-60" selected>40-60%</option>
+                        <option value="45-65">45-65%</option>
+                        <option value="50-70">50-70%</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="primer-pair">
+            <div class="primer-info">
+                <h5 style="color: #28a745; margin-bottom: 10px;">Forward Primer</h5>
+                <div class="primer-sequence" id="forward-primer">Design primers to see sequence</div>
+                <div class="melting-temp-display">
+                    <div class="temp-stat">
+                        <div class="temp-value" id="forward-tm">--°C</div>
+                        <div class="temp-label">Tm</div>
+                    </div>
+                    <div class="temp-stat">
+                        <div class="temp-value" id="forward-gc">--%</div>
+                        <div class="temp-label">GC%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="primer-info">
+                <h5 style="color: #dc3545; margin-bottom: 10px;">Reverse Primer</h5>
+                <div class="primer-sequence" id="reverse-primer">Design primers to see sequence</div>
+                <div class="melting-temp-display">
+                    <div class="temp-stat">
+                        <div class="temp-value" id="reverse-tm">--°C</div>
+                        <div class="temp-label">Tm</div>
+                    </div>
+                    <div class="temp-stat">
+                        <div class="temp-value" id="reverse-gc">--%</div>
+                        <div class="temp-label">GC%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pcr-conditions">
+            <h4 style="margin-bottom: 15px; color: #2c3e50;">Recommended PCR Conditions</h4>
+            <div class="conditions-grid">
+                <div class="condition-item">
+                    <div class="condition-value" id="annealing-temp">--°C</div>
+                    <div class="stat-label">Annealing Temperature</div>
+                </div>
+                <div class="condition-item">
+                    <div class="condition-value" id="extension-time">-- sec</div>
+                    <div class="stat-label">Extension Time</div>
+                </div>
+                <div class="condition-item">
+                    <div class="condition-value" id="cycle-count">-- cycles</div>
+                    <div class="stat-label">Cycle Count</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button onclick="designPrimers()">Design Primers</button>
+    <div id="pcr-result" class="result"></div>
+</div>
+
+<!-- restriction enzyme finder -->
+<div class="calculator-card">
+    <h2>Restriction Enzyme Finder</h2>
+    
+    <div class="input-group">
+        <label for="dna-sequence-enzyme">DNA Sequence</label>
+        <textarea id="dna-sequence-enzyme" placeholder="Enter DNA sequence to analyze for restriction sites..."></textarea>
+    </div>
+
+    <div class="enzyme-search-section">
+        <h4 style="margin-bottom: 15px; color: #2c3e50;">Search Filters</h4>
+        <div class="enzyme-filters">
+            <div class="input-group">
+                <label>Cut Frequency</label>
+                <select id="cut-frequency">
+                    <option value="all">All enzymes</option>
+                    <option value="single">Single cutters</option>
+                    <option value="multiple">Multiple cutters</option>
+                    <option value="none">Non-cutters</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Recognition Site Length</label>
+                <select id="site-length">
+                    <option value="all">All lengths</option>
+                    <option value="4">4 base pairs</option>
+                    <option value="6">6 base pairs</option>
+                    <option value="8">8 base pairs</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Overhang Type</label>
+                <select id="overhang-type">
+                    <option value="all">All types</option>
+                    <option value="5prime">5' overhang</option>
+                    <option value="3prime">3' overhang</option>
+                    <option value="blunt">Blunt ends</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Common Enzymes Only</label>
+                <select id="common-only">
+                    <option value="false">Show all</option>
+                    <option value="true" selected>Common enzymes</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="sequence-view">
+        <h4 style="margin-bottom: 15px; color: #2c3e50;">Sequence with Restriction Sites</h4>
+        <div class="sequence-display" id="marked-sequence">
+            Enter DNA sequence to see restriction sites...
+        </div>
+        <div class="info-box">
+            <strong>Legend:</strong> <span class="cut-site">Highlighted sequences</span> indicate restriction enzyme cut sites. Hover over sites for enzyme information.
+        </div>
+    </div>
+
+    <div class="enzyme-results-table">
+        <table class="enzyme-table">
+            <thead>
+                <tr>
+                    <th>Enzyme</th>
+                    <th>Recognition Site</th>
+                    <th>Cut Sites</th>
+                    <th>Positions</th>
+                    <th>Overhang</th>
+                </tr>
+            </thead>
+            <tbody id="enzyme-results">
+                <tr>
+                    <td colspan="5" style="text-align: center; color: #6c757d; font-style: italic;">
+                        Analyze sequence to see restriction enzymes
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button onclick="findRestrictionSites()">Analyze Sequence</button>
+    </div>
     </div>
 </body>
 </html>
