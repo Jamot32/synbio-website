@@ -1,521 +1,735 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Synbio Website</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <script type="text/javascript" src="script.js"></script>
-</head>
-<body>
+  </head>
+
+  <body>
     <div class="container">
-        <header>
-            <h1>Synbio Website</h1>
-        </header>
-        
-        <div class="calculator-grid">
-            <!-- molarity & dilution calculator card -->
-            <div class="calculator-card">
-                <h2>Molarity & Dilution Calculator</h2>
-                <div class="calculator-type">
-                    <div class="calc-option active" data-type="molarity-from-mass">Mass → Molarity</div>
-                    <div class="calc-option" data-type="mass-from-molarity">Molarity → Mass</div>
-                    <div class="calc-option" data-type="multi-solute">Multi-Solute</div>
-                    <div class="calc-option" data-type="dilution">Dilution</div>
-                </div>
-                
-                <!-- mass to molarity -->
-                <div id="molarity-from-mass-calc">
-                    <div class="input-group">
-                        <label>Compound</label>
-                        <div class="compound-selector">
-                            <select id="compound-select">
-                                <option value="">Select compound or enter manually</option>
-                            </select>
-                            <button type="button" class="add-compound-btn" onclick="openModal()">Add</button>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label for="mass">Mass (g)</label>
-                        <input type="number" id="mass" step="any" placeholder="Enter mass in grams">
-                    </div>
-                    <div class="input-group">
-                        <label for="molecular-weight">Molecular Weight (g/mol)</label>
-                        <input type="number" id="molecular-weight" step="any" placeholder="Auto-filled or enter manually">
-                    </div>
-                    <div class="input-group">
-                        <label for="volume-mass">Volume (L)</label>
-                        <input type="number" id="volume-mass" step="any" placeholder="Enter volume in liters">
-                    </div>
-                </div>
-                
-                <!-- molarity to mass -->
-                <div id="mass-from-molarity-calc" style="display: none;">
-                    <div class="input-group">
-                        <label>Compound</label>
-                        <div class="compound-selector">
-                            <select id="compound-select-mass">
-                                <option value="">Select compound or enter manually</option>
-                            </select>
-                            <button type="button" class="add-compound-btn" onclick="openModal()">Add</button>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label for="molarity-mass">Desired Molarity (M)</label>
-                        <input type="number" id="molarity-mass" step="any" placeholder="Enter desired molarity">
-                    </div>
-                    <div class="input-group">
-                        <label for="molecular-weight-mass">Molecular Weight (g/mol)</label>
-                        <input type="number" id="molecular-weight-mass" step="any" placeholder="Auto-filled or enter manually">
-                    </div>
-                    <div class="input-group">
-                        <label for="volume-molarity">Volume (L)</label>
-                        <input type="number" id="volume-molarity" step="any" placeholder="Enter volume in liters">
-                    </div>
-                </div>
-                
-                <!-- multi-solute -->
-                <div id="multi-solute-calc" style="display: none;">
-                    <div class="input-group">
-                        <label for="total-volume">Total Solution Volume (L)</label>
-                        <input type="number" id="total-volume" step="any" placeholder="Enter total volume">
-                    </div>
-                    
-                    <button type="button" class="add-solute-btn" onclick="addSolute()">Add Solute</button>
-                    
-                    <div class="solute-list" id="solute-list">
-                    </div>
-                </div>
-                
-                <!-- dilution -->
-                <div id="dilution-calc" style="display: none;">
-                    <div class="input-group">
-                        <label for="c1">Initial Concentration (C₁) - M</label>
-                        <input type="number" id="c1" step="any" placeholder="Stock concentration">
-                    </div>
-                    <div class="input-group">
-                        <label for="v1">Initial Volume (V₁) - mL</label>
-                        <input type="number" id="v1" step="any" placeholder="Volume of stock needed">
-                    </div>
-                    <div class="input-group">
-                        <label for="c2">Final Concentration (C₂) - M</label>
-                        <input type="number" id="c2" step="any" placeholder="Desired final concentration">
-                    </div>
-                    <div class="input-group">
-                        <label for="v2">Final Volume (V₂) - mL</label>
-                        <input type="number" id="v2" step="any" placeholder="Total final volume">
-                    </div>
-                    <p style="font-size: 13px; color: #6c757d; margin-top: 10px;">
-                        <em>Leave one field empty to calculate it</em>
-                    </p>
-                </div>
-                
-                <button onclick="calculateMolarity()">Calculate</button>
-                
-                <div id="molarity-result" class="result">
-                    <h3>Result:</h3>
-                    <div id="molarity-output"></div>
-                    <div class="formula" id="molarity-formula"></div>
-                </div>
+      <header>
+        <h1>Synbio Website</h1>
+      </header>
+
+      <div class="calculator-grid">
+        <!-- molarity & dilution calculator card -->
+        <div class="calculator-card">
+          <h2>Molarity & Dilution Calculator</h2>
+          <div class="calculator-type">
+            <div class="calc-option active" data-type="molarity-from-mass">
+              Mass → Molarity
             </div>
-
-            <!-- dna/protein converter card -->
-            <div class="calculator-card">
-                <h2>DNA ⟷ Protein Converter</h2>
-                <div class="calculator-type">
-                    <div class="calc-option active" data-type="dna-to-protein" data-card="sequence">DNA → Protein</div>
-                    <div class="calc-option" data-type="protein-to-dna" data-card="sequence">Protein → DNA</div>
-                </div>
-
-                <!-- dna to protein -->
-                <div id="dna-to-protein-calc">
-                    <div class="input-group">
-                        <label for="dna-sequence">DNA Sequence</label>
-                        <textarea id="dna-sequence" placeholder="Enter DNA sequence (ATCG...)"></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label for="reading-frame">Reading Frame</label>
-                        <select id="reading-frame">
-                            <option value="1">Frame +1</option>
-                            <option value="2">Frame +2</option>
-                            <option value="3">Frame +3</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- dna to protein -->
-                <div id="protein-to-dna-calc" style="display: none;">
-                    <div class="input-group">
-                        <label for="protein-sequence">Protein Sequence</label>
-                        <textarea id="protein-sequence" placeholder="Enter amino acid sequence (single letter codes: ACDEFG...)"></textarea>
-                    </div>
-                </div>
-
-                <button onclick="calculateSequence()">Convert</button>
-
-                <div id="sequence-result" class="result">
-                    <h3>Results:</h3>
-                    <div id="sequence-output"></div>
-                </div>
+            <div class="calc-option" data-type="mass-from-molarity">
+              Molarity → Mass
             </div>
+            <div class="calc-option" data-type="multi-solute">Multi-Solute</div>
+            <div class="calc-option" data-type="dilution">Dilution</div>
+          </div>
 
-                        <!-- gibson assembly card -->
-             <div class="calculator-card">
-    <h2>Gibson Assembly Calculator</h2>
-    <div class="calculator-type">
-        <div class="calc-option active" data-type="gibson-basic">Basic Assembly</div>
-        <div class="calc-option" data-type="gibson-overlap">Overlap Designer</div>
-        <div class="calc-option" data-type="gibson-protocol">Protocol Generator</div>
-    </div>
-
-    <!-- asic gibson -->
-    <div id="gibson-basic-calc">
-        <div class="input-group">
-            <label for="vector-name">Vector Name (optional)</label>
-            <input type="text" id="vector-name" placeholder="e.g., pET28a">
-        </div>
-        <div class="input-group">
-            <label for="vector-length">Vector Length (bp)</label>
-            <input type="number" id="vector-length" step="any" placeholder="e.g., 5369" min="100">
-        </div>
-        <div class="input-group">
-            <label for="vector-concentration">Vector Concentration (ng/μL)</label>
-            <input type="number" id="vector-concentration" step="any" placeholder="e.g., 45" min="1">
-        </div>
-
-        <div class="gibson-settings">
+          <!-- mass to molarity -->
+          <div id="molarity-from-mass-calc">
             <div class="input-group">
-                <label for="reaction-volume">Reaction Volume (μL)</label>
-                <input type="number" id="reaction-volume" value="10" min="5" max="20" step="0.1">
-            </div>
-            <div class="input-group">
-                <label for="insert-vector-ratio">Insert:Vector Molar Ratio</label>
-                <select id="insert-vector-ratio">
-                    <option value="2">2:1</option>
-                    <option value="3" selected>3:1</option>
-                    <option value="4">4:1</option>
-                    <option value="5">5:1</option>
-                    <option value="6">6:1</option>
+              <label>Compound</label>
+              <div class="compound-selector">
+                <select id="compound-select">
+                  <option value="">Select compound or enter manually</option>
                 </select>
+                <button
+                  type="button"
+                  class="add-compound-btn"
+                  onclick="openModal()"
+                >
+                  Add
+                </button>
+              </div>
             </div>
+            <div class="input-group">
+              <label for="mass">Mass (g)</label>
+              <input
+                type="number"
+                id="mass"
+                step="any"
+                placeholder="Enter mass in grams"
+              />
+            </div>
+            <div class="input-group">
+              <label for="molecular-weight">Molecular Weight (g/mol)</label>
+              <input
+                type="number"
+                id="molecular-weight"
+                step="any"
+                placeholder="Auto-filled or enter manually"
+              />
+            </div>
+            <div class="input-group">
+              <label for="volume-mass">Volume (L)</label>
+              <input
+                type="number"
+                id="volume-mass"
+                step="any"
+                placeholder="Enter volume in liters"
+              />
+            </div>
+          </div>
+
+          <!-- molarity to mass -->
+          <div id="mass-from-molarity-calc" style="display: none">
+            <div class="input-group">
+              <label>Compound</label>
+              <div class="compound-selector">
+                <select id="compound-select-mass">
+                  <option value="">Select compound or enter manually</option>
+                </select>
+                <button
+                  type="button"
+                  class="add-compound-btn"
+                  onclick="openModal()"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+            <div class="input-group">
+              <label for="molarity-mass">Desired Molarity (M)</label>
+              <input
+                type="number"
+                id="molarity-mass"
+                step="any"
+                placeholder="Enter desired molarity"
+              />
+            </div>
+            <div class="input-group">
+              <label for="molecular-weight-mass"
+                >Molecular Weight (g/mol)</label
+              >
+              <input
+                type="number"
+                id="molecular-weight-mass"
+                step="any"
+                placeholder="Auto-filled or enter manually"
+              />
+            </div>
+            <div class="input-group">
+              <label for="volume-molarity">Volume (L)</label>
+              <input
+                type="number"
+                id="volume-molarity"
+                step="any"
+                placeholder="Enter volume in liters"
+              />
+            </div>
+          </div>
+
+          <!-- multi-solute -->
+          <div id="multi-solute-calc" style="display: none">
+            <div class="input-group">
+              <label for="total-volume">Total Solution Volume (L)</label>
+              <input
+                type="number"
+                id="total-volume"
+                step="any"
+                placeholder="Enter total volume"
+              />
+            </div>
+
+            <button type="button" class="add-solute-btn" onclick="addSolute()">
+              Add Solute
+            </button>
+
+            <div class="solute-list" id="solute-list"></div>
+          </div>
+
+          <!-- dilution -->
+          <div id="dilution-calc" style="display: none">
+            <div class="input-group">
+              <label for="c1">Initial Concentration (C₁) - M</label>
+              <input
+                type="number"
+                id="c1"
+                step="any"
+                placeholder="Stock concentration"
+              />
+            </div>
+            <div class="input-group">
+              <label for="v1">Initial Volume (V₁) - mL</label>
+              <input
+                type="number"
+                id="v1"
+                step="any"
+                placeholder="Volume of stock needed"
+              />
+            </div>
+            <div class="input-group">
+              <label for="c2">Final Concentration (C₂) - M</label>
+              <input
+                type="number"
+                id="c2"
+                step="any"
+                placeholder="Desired final concentration"
+              />
+            </div>
+            <div class="input-group">
+              <label for="v2">Final Volume (V₂) - mL</label>
+              <input
+                type="number"
+                id="v2"
+                step="any"
+                placeholder="Total final volume"
+              />
+            </div>
+            <p style="font-size: 13px; color: #6c757d; margin-top: 10px">
+              <em>Leave one field empty to calculate it</em>
+            </p>
+          </div>
+
+          <button onclick="calculateMolarity()">Calculate</button>
+
+          <div id="molarity-result" class="result">
+            <h3>Result:</h3>
+            <div id="molarity-output"></div>
+            <div class="formula" id="molarity-formula"></div>
+          </div>
         </div>
 
-        <button type="button" class="add-fragment-btn" onclick="addGibsonFragment()">Add Fragment</button>
+        <!-- dna/protein converter card -->
+        <div class="calculator-card">
+          <h2>DNA ⟷ Protein Converter</h2>
+          <div class="calculator-type">
+            <div
+              class="calc-option active"
+              data-type="dna-to-protein"
+              data-card="sequence"
+            >
+              DNA → Protein
+            </div>
+            <div
+              class="calc-option"
+              data-type="protein-to-dna"
+              data-card="sequence"
+            >
+              Protein → DNA
+            </div>
+          </div>
 
-        <div class="fragment-list" id="gibson-fragment-list">
-        </div>
-    </div>
+          <!-- dna to protein -->
+          <div id="dna-to-protein-calc">
+            <div class="input-group">
+              <label for="dna-sequence">DNA Sequence</label>
+              <textarea
+                id="dna-sequence"
+                placeholder="Enter DNA sequence (ATCG...)"
+              ></textarea>
+            </div>
+            <div class="input-group">
+              <label for="reading-frame">Reading Frame</label>
+              <select id="reading-frame">
+                <option value="1">Frame +1</option>
+                <option value="2">Frame +2</option>
+                <option value="3">Frame +3</option>
+              </select>
+            </div>
+          </div>
 
-    <!-- overlap design -->
-    <div id="gibson-overlap-calc" style="display: none;">
-        <div class="input-group">
-            <label for="overlap-sequence">Overlap Sequence</label>
-            <textarea id="overlap-sequence" placeholder="Enter DNA overlap sequence (15-40 bp recommended)"></textarea>
-        </div>
-        <div class="overlap-analysis" id="overlap-analysis">
-            <!-- results -->
-        </div>
-    </div>
+          <!-- dna to protein -->
+          <div id="protein-to-dna-calc" style="display: none">
+            <div class="input-group">
+              <label for="protein-sequence">Protein Sequence</label>
+              <textarea
+                id="protein-sequence"
+                placeholder="Enter amino acid sequence (single letter codes: ACDEFG...)"
+              ></textarea>
+            </div>
+          </div>
 
-    <!-- for protocol -->
-    <div id="gibson-protocol-calc" style="display: none;">
-        <div class="input-group">
-            <label for="assembly-kit">Assembly Kit</label>
-            <select id="assembly-kit">
+          <button onclick="calculateSequence()">Convert</button>
+
+          <div id="sequence-result" class="result">
+            <h3>Results:</h3>
+            <div id="sequence-output"></div>
+          </div>
+        </div>
+
+        <!-- gibson assembly card -->
+        <div class="calculator-card">
+          <h2>Gibson Assembly Calculator</h2>
+          <div class="calculator-type">
+            <div class="calc-option active" data-type="gibson-basic">
+              Basic Assembly
+            </div>
+            <div class="calc-option" data-type="gibson-overlap">
+              Overlap Designer
+            </div>
+            <div class="calc-option" data-type="gibson-protocol">
+              Protocol Generator
+            </div>
+          </div>
+
+          <!-- asic gibson -->
+          <div id="gibson-basic-calc">
+            <div class="input-group">
+              <label for="vector-name">Vector Name (optional)</label>
+              <input type="text" id="vector-name" placeholder="e.g., pET28a" />
+            </div>
+            <div class="input-group">
+              <label for="vector-length">Vector Length (bp)</label>
+              <input
+                type="number"
+                id="vector-length"
+                step="any"
+                placeholder="e.g., 5369"
+                min="100"
+              />
+            </div>
+            <div class="input-group">
+              <label for="vector-concentration"
+                >Vector Concentration (ng/μL)</label
+              >
+              <input
+                type="number"
+                id="vector-concentration"
+                step="any"
+                placeholder="e.g., 45"
+                min="1"
+              />
+            </div>
+
+            <div class="gibson-settings">
+              <div class="input-group">
+                <label for="reaction-volume">Reaction Volume (μL)</label>
+                <input
+                  type="number"
+                  id="reaction-volume"
+                  value="10"
+                  min="5"
+                  max="20"
+                  step="0.1"
+                />
+              </div>
+              <div class="input-group">
+                <label for="insert-vector-ratio"
+                  >Insert:Vector Molar Ratio</label
+                >
+                <select id="insert-vector-ratio">
+                  <option value="2">2:1</option>
+                  <option value="3" selected>3:1</option>
+                  <option value="4">4:1</option>
+                  <option value="5">5:1</option>
+                  <option value="6">6:1</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="add-fragment-btn"
+              onclick="addGibsonFragment()"
+            >
+              Add Fragment
+            </button>
+
+            <div class="fragment-list" id="gibson-fragment-list"></div>
+          </div>
+
+          <!-- overlap design -->
+          <div id="gibson-overlap-calc" style="display: none">
+            <div class="input-group">
+              <label for="overlap-sequence">Overlap Sequence</label>
+              <textarea
+                id="overlap-sequence"
+                placeholder="Enter DNA overlap sequence (15-40 bp recommended)"
+              ></textarea>
+            </div>
+            <div class="overlap-analysis" id="overlap-analysis">
+              <!-- results -->
+            </div>
+          </div>
+
+          <!-- for protocol -->
+          <div id="gibson-protocol-calc" style="display: none">
+            <div class="input-group">
+              <label for="assembly-kit">Assembly Kit</label>
+              <select id="assembly-kit">
                 <option value="nebuilder">NEBuilder HiFi DNA Assembly</option>
                 <option value="homemade">Homemade Gibson Mix</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="incubation-time">Incubation Time (minutes)</label>
-            <input type="number" id="incubation-time" value="60" min="15" max="120">
-        </div>
-        <div class="protocol-output" id="protocol-output">
-            <!-- protocol output -->
-        </div>
-    </div>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="incubation-time">Incubation Time (minutes)</label>
+              <input
+                type="number"
+                id="incubation-time"
+                value="60"
+                min="15"
+                max="120"
+              />
+            </div>
+            <div class="protocol-output" id="protocol-output">
+              <!-- protocol output -->
+            </div>
+          </div>
 
-    <button onclick="calculateGibson()">Calculate</button>
+          <button onclick="calculateGibson()">Calculate</button>
 
-    <div id="gibson-result" class="result">
-        <h3>Results:</h3>
-        <div id="gibson-output"></div>
-        <div class="formula" id="gibson-formula"></div>
-    </div>
-</div>
+          <div id="gibson-result" class="result">
+            <h3>Results:</h3>
+            <div id="gibson-output"></div>
+            <div class="formula" id="gibson-formula"></div>
+          </div>
         </div>
-    </div>
-    
 
-    <!-- add compound modal -->
-    <div id="compoundModal" class="modal">
-        <div class="modal-content">
+        <!-- add compound modal -->
+        <div id="compoundModal" class="modal">
+          <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Add New Compound</h3>
             <div class="input-group">
-                <label for="new-compound-name">Compound Name</label>
-                <input type="text" id="new-compound-name" placeholder="e.g., NaCl">
+              <label for="new-compound-name">Compound Name</label>
+              <input
+                type="text"
+                id="new-compound-name"
+                placeholder="e.g., NaCl"
+              />
             </div>
             <div class="input-group">
-                <label for="new-molecular-weight">Molecular Weight (g/mol)</label>
-                <input type="number" id="new-molecular-weight" step="any" placeholder="e.g., 58.44">
+              <label for="new-molecular-weight">Molecular Weight (g/mol)</label>
+              <input
+                type="number"
+                id="new-molecular-weight"
+                step="any"
+                placeholder="e.g., 58.44"
+              />
             </div>
             <button onclick="addCompound()">Add Compound</button>
-            
-            <div class="saved-compounds" id="saved-compounds">
+
+            <div class="saved-compounds" id="saved-compounds"></div>
+          </div>
+        </div>
+
+        <!-- standard curve -->
+        <div class="calculator-card">
+          <h2>Standard Curve Generator</h2>
+          <div class="calculator-type">
+            <div class="calc-option active" data-type="linear-curve">
+              Linear Curve
             </div>
-        </div>
+          </div>
 
-        </div>
-
-
-
-
-
-
-        
-        <!-- standard curve -->   
-<div class="calculator-card">
-    <h2>Standard Curve Generator</h2>
-    <div class="calculator-type">
-        <div class="calc-option active" data-type="linear-curve">Linear Curve</div>
-        <div class="calc-option" data-type="interpolation">Interpolation</div>
-    </div>
-
-    <div class="curve-input-section">
-        <h4 style="margin-bottom: 15px; color: #2c3e50;">Data Points</h4>
-        <div class="coordinate-inputs">
-            <div class="input-group" style="margin-bottom: 0;">
+          <div class="curve-input-section">
+            <h4 style="margin-bottom: 15px; color: #2c3e50">Data Points</h4>
+            <div class="coordinate-inputs">
+              <div class="input-group" style="margin-bottom: 0">
                 <label>Concentration</label>
-                <input type="number" id="x-coordinate" placeholder="Enter X value" step="any">
-            </div>
-            <div class="input-group" style="margin-bottom: 0;">
+                <input
+                  type="number"
+                  id="x-coordinate"
+                  placeholder="Enter X value"
+                  step="any"
+                />
+              </div>
+              <div class="input-group" style="margin-bottom: 0">
                 <label>Absorbance</label>
-                <input type="number" id="y-coordinate" placeholder="Enter Y value" step="any">
+                <input
+                  type="number"
+                  id="y-coordinate"
+                  placeholder="Enter Y value"
+                  step="any"
+                />
+              </div>
+              <button class="add-btn" onclick="addDataPoint()">
+                Add Point
+              </button>
             </div>
-            <button class="add-btn" onclick="addDataPoint()">Add Point</button>
-        </div>
-        
-        <div class="coordinate-list" id="coordinate-list">
-            <div style="text-align: center; color: #6c757d; font-style: italic;">No data points added yet</div>
-        </div>
-    </div>
 
-    <canvas class="graph-canvas" id="curve-canvas"></canvas>
+            <div class="coordinate-list" id="coordinate-list">
+              <div
+                style="text-align: center; color: #6c757d; font-style: italic"
+              >
+                No data points added yet
+              </div>
+            </div>
+          </div>
 
-    <div class="stats-display">
-        <div class="stat-box">
-            <div class="stat-value" id="r-squared">--</div>
-            <div class="stat-label">R² Value</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-value" id="slope">--</div>
-            <div class="stat-label">Slope</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-value" id="intercept">--</div>
-            <div class="stat-label">Y-Intercept</div>
-        </div>
-    </div>
+          <canvas class="graph-canvas" id="curve-canvas"></canvas>
 
-    <div class="equation-display" id="equation-display">
-        Add data points to generate equation
-    </div>
+          <div class="stats-display">
+            <div class="stat-box">
+              <div class="stat-value" id="r-squared">--</div>
+              <div class="stat-label">R² Value</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="slope">--</div>
+              <div class="stat-label">Slope</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="intercept">--</div>
+              <div class="stat-label">Y-Intercept</div>
+            </div>
+          </div>
 
-    <div class="interpolation-section">
-        <h4 style="margin-bottom: 15px; color: #2c3e50;">Interpolation</h4>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-            <div class="input-group">
+          <div class="equation-display" id="equation-display">
+            Add data points to generate equation
+          </div>
+
+          <div class="interpolation-section">
+            <h4 style="margin-bottom: 15px; color: #2c3e50">Interpolation</h4>
+            <div
+              style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px"
+            >
+              <div class="input-group">
                 <label>Known Concentration</label>
-                <input type="number" id="known-x" placeholder="Enter X to find Y" step="any">
-            </div>
-            <div class="input-group">
+                <input
+                  type="number"
+                  id="known-x"
+                  placeholder="Enter X to find Y"
+                  step="any"
+                />
+              </div>
+              <div class="input-group">
                 <label>Known Absorbance</label>
-                <input type="number" id="known-y" placeholder="Enter Y to find X" step="any">
+                <input
+                  type="number"
+                  id="known-y"
+                  placeholder="Enter Y to find X"
+                  step="any"
+                />
+              </div>
             </div>
-        </div>
-        <div id="interpolation-result" style="margin-top: 15px; font-weight: 600;"></div>
-    </div>
+            <div
+              id="interpolation-result"
+              style="margin-top: 15px; font-weight: 600"
+            ></div>
+          </div>
 
-    <button onclick="calculateCurve()">Generate Curve</button>
-    <div id="curve-result" class="result"></div>
-</div>
-
-<!-- pcr calculator -->
-<div class="calculator-card">
-    <h2>PCR Calculator</h2>
-    <div class="calculator-type">
-        <div class="calc-option active" data-type="primer-design">Primer Design</div>
-        <div class="calc-option" data-type="pcr-conditions">PCR Conditions</div>
-    </div>
-
-    <div id="primer-design-calc" class="pcr-sections">
-        <div class="input-group">
-            <label for="target-sequence">Target DNA Sequence</label>
-            <textarea id="target-sequence" placeholder="Enter your target DNA sequence (5' to 3')"></textarea>
+          <div id="curve-result" class="result"></div>
         </div>
 
-        <div class="primer-design-section">
-            <h4 style="margin-bottom: 15px; color: #2c3e50;">Primer Design Settings</h4>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
-                <div class="input-group">
-                    <label>Primer Length</label>
-                    <select id="primer-length">
-                        <option value="18-22">18-22 bp</option>
-                        <option value="20-24" selected>20-24 bp</option>
-                        <option value="22-26">22-26 bp</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label>Target Tm (°C)</label>
-                    <input type="number" id="target-tm" value="60" min="50" max="70" step="1">
-                </div>
-                <div class="input-group">
-                    <label>GC Content (%)</label>
-                    <select id="gc-content">
-                        <option value="40-60" selected>40-60%</option>
-                        <option value="45-65">45-65%</option>
-                        <option value="50-70">50-70%</option>
-                    </select>
-                </div>
+        <!-- pcr calculator -->
+        <div class="calculator-card">
+          <h2>PCR Calculator</h2>
+          <div class="calculator-type">
+            <div class="calc-option active" data-type="primer-design">
+              Primer Design
             </div>
-        </div>
-
-        <div class="primer-pair">
-            <div class="primer-info">
-                <h5 style="color: #28a745; margin-bottom: 10px;">Forward Primer</h5>
-                <div class="primer-sequence" id="forward-primer">Design primers to see sequence</div>
-                <div class="melting-temp-display">
-                    <div class="temp-stat">
-                        <div class="temp-value" id="forward-tm">--°C</div>
-                        <div class="temp-label">Tm</div>
-                    </div>
-                    <div class="temp-stat">
-                        <div class="temp-value" id="forward-gc">--%</div>
-                        <div class="temp-label">GC%</div>
-                    </div>
-                </div>
+            <div class="calc-option" data-type="pcr-conditions">
+              PCR Conditions
             </div>
-            <div class="primer-info">
-                <h5 style="color: #dc3545; margin-bottom: 10px;">Reverse Primer</h5>
-                <div class="primer-sequence" id="reverse-primer">Design primers to see sequence</div>
-                <div class="melting-temp-display">
-                    <div class="temp-stat">
-                        <div class="temp-value" id="reverse-tm">--°C</div>
-                        <div class="temp-label">Tm</div>
-                    </div>
-                    <div class="temp-stat">
-                        <div class="temp-value" id="reverse-gc">--%</div>
-                        <div class="temp-label">GC%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+          </div>
 
-        <div class="pcr-conditions">
-            <h4 style="margin-bottom: 15px; color: #2c3e50;">Recommended PCR Conditions</h4>
-            <div class="conditions-grid">
-                <div class="condition-item">
-                    <div class="condition-value" id="annealing-temp">--°C</div>
-                    <div class="stat-label">Annealing Temperature</div>
-                </div>
-                <div class="condition-item">
-                    <div class="condition-value" id="extension-time">-- sec</div>
-                    <div class="stat-label">Extension Time</div>
-                </div>
-                <div class="condition-item">
-                    <div class="condition-value" id="cycle-count">-- cycles</div>
-                    <div class="stat-label">Cycle Count</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <button onclick="designPrimers()">Design Primers</button>
-    <div id="pcr-result" class="result"></div>
-</div>
-
-<!-- restriction enzyme finder -->
-<div class="calculator-card">
-    <h2>Restriction Enzyme Finder</h2>
-    
-    <div class="input-group">
-        <label for="dna-sequence-enzyme">DNA Sequence</label>
-        <textarea id="dna-sequence-enzyme" placeholder="Enter DNA sequence to analyze for restriction sites..."></textarea>
-    </div>
-
-    <div class="enzyme-search-section">
-        <h4 style="margin-bottom: 15px; color: #2c3e50;">Search Filters</h4>
-        <div class="enzyme-filters">
+          <div id="primer-design-calc" class="pcr-sections">
             <div class="input-group">
+              <label for="target-sequence">Target DNA Sequence</label>
+              <textarea
+                id="target-sequence"
+                placeholder="Enter your target DNA sequence (5' to 3')"
+              ></textarea>
+            </div>
+
+            <div class="primer-design-section">
+              <h4 style="margin-bottom: 15px; color: #2c3e50">
+                Primer Design Settings
+              </h4>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                  gap: 15px;
+                "
+              >
+                <div class="input-group">
+                  <label>Primer Length</label>
+                  <select id="primer-length">
+                    <option value="18-22">18-22 bp</option>
+                    <option value="20-24" selected>20-24 bp</option>
+                    <option value="22-26">22-26 bp</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label>Target Tm (°C)</label>
+                  <input
+                    type="number"
+                    id="target-tm"
+                    value="60"
+                    min="50"
+                    max="70"
+                    step="1"
+                  />
+                </div>
+                <div class="input-group">
+                  <label>GC Content (%)</label>
+                  <select id="gc-content">
+                    <option value="40-60" selected>40-60%</option>
+                    <option value="45-65">45-65%</option>
+                    <option value="50-70">50-70%</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="primer-pair">
+              <div class="primer-info">
+                <h5 style="color: #28a745; margin-bottom: 10px">
+                  Forward Primer
+                </h5>
+                <div class="primer-sequence" id="forward-primer">
+                  Design primers to see sequence
+                </div>
+                <div class="melting-temp-display">
+                  <div class="temp-stat">
+                    <div class="temp-value" id="forward-tm">--°C</div>
+                    <div class="temp-label">Tm</div>
+                  </div>
+                  <div class="temp-stat">
+                    <div class="temp-value" id="forward-gc">--%</div>
+                    <div class="temp-label">GC%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="primer-info">
+                <h5 style="color: #dc3545; margin-bottom: 10px">
+                  Reverse Primer
+                </h5>
+                <div class="primer-sequence" id="reverse-primer">
+                  Design primers to see sequence
+                </div>
+                <div class="melting-temp-display">
+                  <div class="temp-stat">
+                    <div class="temp-value" id="reverse-tm">--°C</div>
+                    <div class="temp-label">Tm</div>
+                  </div>
+                  <div class="temp-stat">
+                    <div class="temp-value" id="reverse-gc">--%</div>
+                    <div class="temp-label">GC%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pcr-conditions">
+              <h4 style="margin-bottom: 15px; color: #2c3e50">
+                Recommended PCR Conditions
+              </h4>
+              <div class="conditions-grid">
+                <div class="condition-item">
+                  <div class="condition-value" id="annealing-temp">--°C</div>
+                  <div class="stat-label">Annealing Temperature</div>
+                </div>
+                <div class="condition-item">
+                  <div class="condition-value" id="extension-time">-- sec</div>
+                  <div class="stat-label">Extension Time</div>
+                </div>
+                <div class="condition-item">
+                  <div class="condition-value" id="cycle-count">-- cycles</div>
+                  <div class="stat-label">Cycle Count</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="designPrimers()">Design Primers</button>
+          <div id="pcr-result" class="result"></div>
+        </div>
+
+        <!-- restriction enzyme finder -->
+        <div class="calculator-card">
+          <h2>Restriction Enzyme Finder</h2>
+
+          <div class="input-group">
+            <label for="dna-sequence-enzyme">DNA Sequence</label>
+            <textarea
+              id="dna-sequence-enzyme"
+              placeholder="Enter DNA sequence to analyze for restriction sites..."
+            ></textarea>
+          </div>
+
+          <div class="enzyme-search-section">
+            <h4 style="margin-bottom: 15px; color: #2c3e50">Search Filters</h4>
+            <div class="enzyme-filters">
+              <div class="input-group">
                 <label>Cut Frequency</label>
                 <select id="cut-frequency">
-                    <option value="all">All enzymes</option>
-                    <option value="single">Single cutters</option>
-                    <option value="multiple">Multiple cutters</option>
-                    <option value="none">Non-cutters</option>
+                  <option value="all">All enzymes</option>
+                  <option value="single">Single cutters</option>
+                  <option value="multiple">Multiple cutters</option>
+                  <option value="none">Non-cutters</option>
                 </select>
-            </div>
-            <div class="input-group">
+              </div>
+              <div class="input-group">
                 <label>Recognition Site Length</label>
                 <select id="site-length">
-                    <option value="all">All lengths</option>
-                    <option value="4">4 base pairs</option>
-                    <option value="6">6 base pairs</option>
-                    <option value="8">8 base pairs</option>
+                  <option value="all">All lengths</option>
+                  <option value="4">4 base pairs</option>
+                  <option value="6">6 base pairs</option>
+                  <option value="8">8 base pairs</option>
                 </select>
-            </div>
-            <div class="input-group">
+              </div>
+              <div class="input-group">
                 <label>Overhang Type</label>
                 <select id="overhang-type">
-                    <option value="all">All types</option>
-                    <option value="5prime">5' overhang</option>
-                    <option value="3prime">3' overhang</option>
-                    <option value="blunt">Blunt ends</option>
+                  <option value="all">All types</option>
+                  <option value="5prime">5' overhang</option>
+                  <option value="3prime">3' overhang</option>
+                  <option value="blunt">Blunt ends</option>
                 </select>
-            </div>
-            <div class="input-group">
+              </div>
+              <div class="input-group">
                 <label>Common Enzymes Only</label>
                 <select id="common-only">
-                    <option value="false">Show all</option>
-                    <option value="true" selected>Common enzymes</option>
+                  <option value="false">Show all</option>
+                  <option value="true" selected>Common enzymes</option>
                 </select>
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
 
-    <div class="sequence-view">
-        <h4 style="margin-bottom: 15px; color: #2c3e50;">Sequence with Restriction Sites</h4>
-        <div class="sequence-display" id="marked-sequence">
-            Enter DNA sequence to see restriction sites...
-        </div>
-        <div class="info-box">
-            <strong>Legend:</strong> <span class="cut-site">Highlighted sequences</span> indicate restriction enzyme cut sites. Hover over sites for enzyme information.
-        </div>
-    </div>
+          <div class="sequence-view">
+            <h4 style="margin-bottom: 15px; color: #2c3e50">
+              Sequence with Restriction Sites
+            </h4>
+            <div class="sequence-display" id="marked-sequence">
+              Enter DNA sequence to see restriction sites...
+            </div>
+            <div class="info-box">
+              <strong>Legend:</strong>
+              <span class="cut-site">Highlighted sequences</span> indicate
+              restriction enzyme cut sites. Hover over sites for enzyme
+              information.
+            </div>
+          </div>
 
-    <div class="enzyme-results-table">
-        <table class="enzyme-table">
-            <thead>
+          <div class="enzyme-results-table">
+            <table class="enzyme-table">
+              <thead>
                 <tr>
-                    <th>Enzyme</th>
-                    <th>Recognition Site</th>
-                    <th>Cut Sites</th>
-                    <th>Positions</th>
-                    <th>Overhang</th>
+                  <th>Enzyme</th>
+                  <th>Recognition Site</th>
+                  <th>Cut Sites</th>
+                  <th>Positions</th>
+                  <th>Overhang</th>
                 </tr>
-            </thead>
-            <tbody id="enzyme-results">
+              </thead>
+              <tbody id="enzyme-results">
                 <tr>
-                    <td colspan="5" style="text-align: center; color: #6c757d; font-style: italic;">
-                        Analyze sequence to see restriction enzymes
-                    </td>
+                  <td
+                    colspan="5"
+                    style="
+                      text-align: center;
+                      color: #6c757d;
+                      font-style: italic;
+                    "
+                  >
+                    Analyze sequence to see restriction enzymes
+                  </td>
                 </tr>
-            </tbody>
-        </table>
-        <button onclick="findRestrictionSites()">Analyze Sequence</button>
+              </tbody>
+            </table>
+            <button onclick="findRestrictionSites()">Analyze Sequence</button>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
-</body>
+  </body>
 </html>
