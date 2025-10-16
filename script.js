@@ -24,7 +24,6 @@ function setupMolarityCalculatorTabs() {
         option.addEventListener('click', function () {
             molarityCard.querySelectorAll('.calc-option').forEach(opt => opt.classList.remove('active'));
             this.classList.add('active');
-
             molarityCard.querySelectorAll('[id$="-calc"]').forEach(calc => calc.style.display = 'none');
 
             // show the selected calc 
@@ -86,6 +85,29 @@ function setupGibsonCalculatorTabs() {
     });
 }
 
+// STANDARD CURVE TAB SWITCHING
+function setupStandardCurveTabs() {
+    const standardCurveCard = document.querySelector('.calculator-card:nth-child(4)');
+    if (!standardCurveCard) return;
+
+    standardCurveCard.querySelectorAll('.calc-option').forEach(option => {
+        option.addEventListener('click', function () {
+            standardCurveCard.querySelectorAll('.calc-option').forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+
+            standardCurveCard.querySelectorAll('[id$="-calc"]').forEach(calc => calc.style.display = 'none');
+
+            const type = this.dataset.type;
+            const targetCalc = document.getElementById(type + '-calc');
+            if (targetCalc) {
+                targetCalc.style.display = 'block';
+            }
+
+            // hide results
+            document.getElementById('curve-result').classList.remove('show');
+        });
+    });
+}
 
 // PCR TAB SWITCHING
 function setupPCRCalculatorTabs() {
@@ -133,4 +155,3 @@ function setupRestrictionEnzymeTabs() {
         });
     });
 }
-
