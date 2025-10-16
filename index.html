@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <script type="text/javascript" src="script.js"></script>
-    <script type="text/javascript" src="molarity.js"></script>
-    <script type="text/javascript" src="sequence-converter.js"></script>
-    <script type="text/javascript" src="gibson-assembly.js"></script>
-    <script type="text/javascript" src="standard-curve.js"></script>
-    <script type="text/javascript" src="pcr-calculator.js"></script>
-    <script type="text/javascript" src="restriction-enzyme.js"></script>
+    <script type="text/javascript" src="calculators/molarity.js"></script>
+    <script type="text/javascript" src="calculators/restriction-enzyme.js"></script>
+    <script type="text/javascript" src="calculators/sequence-converter.js"></script>
+    <script type="text/javascript" src="calculators/gibson-assembly.js"></script>
+    <script type="text/javascript" src="calculators/standard-curve.js"></script>
+    <script type="text/javascript" src="calculators/pcr-calculator.js"></script>
   </head>
 
   <body>
@@ -422,92 +422,101 @@
             <div class="calc-option active" data-type="linear-curve">
               Linear Curve
             </div>
+            <div class="calc-option" data-type="linear-curve-interpolate">
+              Interpolate
+            </div>
           </div>
 
-          <div class="curve-input-section">
-            <h4 style="margin-bottom: 15px; color: #2c3e50">Data Points</h4>
-            <div class="coordinate-inputs">
-              <div class="input-group" style="margin-bottom: 0">
-                <label>Concentration</label>
-                <input
-                  type="number"
-                  id="x-coordinate"
-                  placeholder="Enter X value"
-                  step="any"
-                />
+          <div id="linear-curve-calc">
+            <div class="curve-input-section">
+              <h4 style="margin-bottom: 15px; color: #2c3e50">Data Points</h4>
+              <div class="coordinate-inputs">
+                <div class="input-group" style="margin-bottom: 0">
+                  <label>Concentration</label>
+                  <input
+                    type="number"
+                    id="x-coordinate"
+                    placeholder="Enter X value"
+                    step="any"
+                  />
+                </div>
+                <div class="input-group" style="margin-bottom: 0">
+                  <label>Absorbance</label>
+                  <input
+                    type="number"
+                    id="y-coordinate"
+                    placeholder="Enter Y value"
+                    step="any"
+                  />
+                </div>
+                <button class="add-btn" onclick="addDataPoint()">
+                  Add Point
+                </button>
               </div>
-              <div class="input-group" style="margin-bottom: 0">
-                <label>Absorbance</label>
-                <input
-                  type="number"
-                  id="y-coordinate"
-                  placeholder="Enter Y value"
-                  step="any"
-                />
+
+              <div class="coordinate-list" id="coordinate-list">
+                <div
+                  style="text-align: center; color: #6c757d; font-style: italic"
+                >
+                  No data points added yet
+                </div>
               </div>
-              <button class="add-btn" onclick="addDataPoint()">
-                Add Point
-              </button>
             </div>
 
-            <div class="coordinate-list" id="coordinate-list">
+            <canvas class="graph-canvas" id="curve-canvas"></canvas>
+
+            <div class="stats-display">
+              <div class="stat-box">
+                <div class="stat-value" id="r-squared">--</div>
+                <div class="stat-label">R² Value</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value" id="slope">--</div>
+                <div class="stat-label">Slope</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value" id="intercept">--</div>
+                <div class="stat-label">Y-Intercept</div>
+              </div>
+            </div>
+
+            <div class="equation-display" id="equation-display">
+              Add data points to generate equation
+            </div>
+          </div>
+
+          <div id="linear-curve-interpolate-calc" style="display: none">
+            <div class="interpolation-section">
+              <h4 style="margin-bottom: 15px; color: #2c3e50">
+                Interpolation
+              </h4>
               <div
-                style="text-align: center; color: #6c757d; font-style: italic"
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px"
               >
-                No data points added yet
+                <div class="input-group">
+                  <label>Known Concentration</label>
+                  <input
+                    type="number"
+                    id="known-x"
+                    placeholder="Enter X to find Y"
+                    step="any"
+                  />
+                </div>
+                <div class="input-group">
+                  <label>Known Absorbance</label>
+                  <input
+                    type="number"
+                    id="known-y"
+                    placeholder="Enter Y to find X"
+                    step="any"
+                  />
+                </div>
               </div>
+              <div
+                id="interpolation-result"
+                style="margin-top: 15px; font-weight: 600"
+              ></div>
             </div>
-          </div>
-
-          <canvas class="graph-canvas" id="curve-canvas"></canvas>
-
-          <div class="stats-display">
-            <div class="stat-box">
-              <div class="stat-value" id="r-squared">--</div>
-              <div class="stat-label">R² Value</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-value" id="slope">--</div>
-              <div class="stat-label">Slope</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-value" id="intercept">--</div>
-              <div class="stat-label">Y-Intercept</div>
-            </div>
-          </div>
-
-          <div class="equation-display" id="equation-display">
-            Add data points to generate equation
-          </div>
-
-          <div class="interpolation-section">
-            <h4 style="margin-bottom: 15px; color: #2c3e50">Interpolation</h4>
-            <div
-              style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px"
-            >
-              <div class="input-group">
-                <label>Known Concentration</label>
-                <input
-                  type="number"
-                  id="known-x"
-                  placeholder="Enter X to find Y"
-                  step="any"
-                />
-              </div>
-              <div class="input-group">
-                <label>Known Absorbance</label>
-                <input
-                  type="number"
-                  id="known-y"
-                  placeholder="Enter Y to find X"
-                  step="any"
-                />
-              </div>
-            </div>
-            <div
-              id="interpolation-result"
-              style="margin-top: 15px; font-weight: 600"
-            ></div>
           </div>
 
           <div id="curve-result" class="result"></div>
