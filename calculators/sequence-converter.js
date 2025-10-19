@@ -55,9 +55,17 @@ function setupSequenceCalculatorTabs() {
 
 
             const type = this.dataset.type;
-            if (targetCalc) {
-                targetCalc.style.display = 'block';
-            }
+
+// hide all sequence calculator sections
+document.getElementById('dna-to-protein-calc').style.display = 'none';
+document.getElementById('protein-to-dna-calc').style.display = 'none';
+
+// show the selected section
+if (type === 'dna-to-protein') {
+    document.getElementById('dna-to-protein-calc').style.display = 'block';
+} else if (type === 'protein-to-dna') {
+    document.getElementById('protein-to-dna-calc').style.display = 'block';
+}
 
             document.getElementById('sequence-result').classList.remove('show');
         });
