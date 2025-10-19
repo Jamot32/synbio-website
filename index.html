@@ -422,33 +422,37 @@
             <div class="calc-option active" data-type="linear-curve">
               Linear Curve
             </div>
+            <div class="calc-option" data-type="linear-curve-interpolate">
+              Interpolate
+            </div>
           </div>
 
-          <div class="curve-input-section">
-            <h4 style="margin-bottom: 15px; color: #2c3e50">Data Points</h4>
-            <div class="coordinate-inputs">
-              <div class="input-group" style="margin-bottom: 0">
-                <label>Concentration</label>
-                <input
-                  type="number"
-                  id="x-coordinate"
-                  placeholder="Enter X value"
-                  step="any"
-                />
+          <div id="linear-curve-calc">
+            <div class="curve-input-section">
+              <h4 style="margin-bottom: 15px; color: #2c3e50">Data Points</h4>
+              <div class="coordinate-inputs">
+                <div class="input-group" style="margin-bottom: 0">
+                  <label>Concentration</label>
+                  <input
+                    type="number"
+                    id="x-coordinate"
+                    placeholder="Enter X value"
+                    step="any"
+                  />
+                </div>
+                <div class="input-group" style="margin-bottom: 0">
+                  <label>Absorbance</label>
+                  <input
+                    type="number"
+                    id="y-coordinate"
+                    placeholder="Enter Y value"
+                    step="any"
+                  />
+                </div>
+                <button class="add-btn" onclick="addDataPoint()">
+                  Add Point
+                </button>
               </div>
-              <div class="input-group" style="margin-bottom: 0">
-                <label>Absorbance</label>
-                <input
-                  type="number"
-                  id="y-coordinate"
-                  placeholder="Enter Y value"
-                  step="any"
-                />
-              </div>
-              <button class="add-btn" onclick="addDataPoint()">
-                Add Point
-              </button>
-            </div>
 
               <div class="coordinate-list" id="coordinate-list">
                 <div
@@ -459,25 +463,26 @@
               </div>
             </div>
 
-          <canvas class="graph-canvas" id="curve-canvas"></canvas>
+            <canvas class="graph-canvas" id="curve-canvas"></canvas>
 
-          <div class="stats-display">
-            <div class="stat-box">
-              <div class="stat-value" id="r-squared">--</div>
-              <div class="stat-label">R² Value</div>
+            <div class="stats-display">
+              <div class="stat-box">
+                <div class="stat-value" id="r-squared">--</div>
+                <div class="stat-label">R² Value</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value" id="slope">--</div>
+                <div class="stat-label">Slope</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-value" id="intercept">--</div>
+                <div class="stat-label">Y-Intercept</div>
+              </div>
             </div>
-            <div class="stat-box">
-              <div class="stat-value" id="slope">--</div>
-              <div class="stat-label">Slope</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-value" id="intercept">--</div>
-              <div class="stat-label">Y-Intercept</div>
-            </div>
-          </div>
 
-          <div class="equation-display" id="equation-display">
-            Add data points to generate equation
+            <div class="equation-display" id="equation-display">
+              Add data points to generate equation
+            </div>
           </div>
 
           <div id="linear-curve-interpolate-calc" style="display: none">
