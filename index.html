@@ -8,9 +8,18 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript" src="calculators/molarity.js"></script>
-    <script type="text/javascript" src="calculators/restriction-enzyme.js"></script>
-    <script type="text/javascript" src="calculators/sequence-converter.js"></script>
-    <script type="text/javascript" src="calculators/gibson-assembly.js"></script>
+    <script
+      type="text/javascript"
+      src="calculators/restriction-enzyme.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="calculators/sequence-converter.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="calculators/gibson-assembly.js"
+    ></script>
     <script type="text/javascript" src="calculators/standard-curve.js"></script>
     <script type="text/javascript" src="calculators/pcr-calculator.js"></script>
   </head>
@@ -487,9 +496,7 @@
 
           <div id="linear-curve-interpolate-calc" style="display: none">
             <div class="interpolation-section">
-              <h4 style="margin-bottom: 15px; color: #2c3e50">
-                Interpolation
-              </h4>
+              <h4 style="margin-bottom: 15px; color: #2c3e50">Interpolation</h4>
               <div
                 style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px"
               >
@@ -529,9 +536,11 @@
             <div class="calc-option active" data-type="primer-design">
               Primer Design
             </div>
-            <div class="calc-option" data-type="pcr-conditions">
-              PCR Conditions
+            <div class="calc-option" data-type="primer-quality">
+              Quality Check
             </div>
+            <div class="calc-option" data-type="master-mix">Master Mix</div>
+            "
           </div>
 
           <div id="primer-design-calc" class="pcr-sections">
@@ -586,7 +595,7 @@
 
             <div class="primer-pair">
               <div class="primer-info">
-                <h5 style="color: #28a745; margin-bottom: 10px">
+                <h5 style="color: #2c3e50; margin-bottom: 10px">
                   Forward Primer
                 </h5>
                 <div class="primer-sequence" id="forward-primer">
@@ -604,7 +613,7 @@
                 </div>
               </div>
               <div class="primer-info">
-                <h5 style="color: #dc3545; margin-bottom: 10px">
+                <h5 style="color: #2c3e50; margin-bottom: 10px">
                   Reverse Primer
                 </h5>
                 <div class="primer-sequence" id="reverse-primer">
@@ -644,7 +653,85 @@
             </div>
           </div>
 
-          <button onclick="designPrimers()">Design Primers</button>
+          <div
+            id="primer-quality-calc" class="pcr-sections" style="display: none">
+            <div class="input-group">
+              <label>Forward Primer Sequence</label>
+              <textarea
+                id="forward-primer-check"
+                rows="2"
+                placeholder="Enter forward primer sequence (5' to 3')"
+              ></textarea>
+            </div>
+
+            <div class="input-group">
+              <label>Reverse Primer Sequence</label>
+              <textarea
+                id="reverse-primer-check"
+                rows="2"
+                placeholder="Enter reverse primer sequence (5' to 3')"
+              ></textarea>
+            </div>
+
+            <div id="primer-quality-results" style="margin-top: 20px"></div>
+          </div>
+
+          <div id="master-mix-calc" class="pcr-sections" style="display: none">
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+              "
+            >
+              <div class="input-group">
+                <label>Number of Reactions</label>
+                <input
+                  type="number"
+                  id="num-reactions"
+                  value="1"
+                  min="1"
+                  max="384"
+                />
+              </div>
+
+              <div class="input-group">
+                <label>Reaction Volume (μL)</label>
+                <input
+                  type="number"
+                  id="reaction-volume-master"
+                  value="25"
+                  min="10"
+                  max="100"
+                  step="5"
+                />
+              </div>
+
+              <div class="input-group">
+                <label>Extra Volume (%)</label>
+                <select id="extra-volume">
+                  <option value="10">10% overage</option>
+                  <option value="20" selected>20% overage</option>
+                  <option value="30">30% overage</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>PCR Kit/Mix Type</label>
+                <select id="pcr-kit-type">
+                  <option value="taq">Standard Taq (GoTaq, etc.)</option>
+                  <option value="phusion" selected>
+                    High-fidelity (Phusion, Q5)
+                  </option>
+                  <option value="onetaq">OneTaq/LongAmp</option>
+                  <option value="custom">Custom Mix</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="master-mix-results" style="margin-top: 20px"></div>
+          </div>
+          <button onclick="designPrimers()">Calculate</button>
           <div id="pcr-result" class="result"></div>
         </div>
 

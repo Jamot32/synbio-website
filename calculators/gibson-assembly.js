@@ -34,6 +34,12 @@ function calculateGibsonOptimalRatios(vectorLength, fragmentLengths, ratio = 3) 
     return results;
 }
 
+function calculateGCContent(dnaSequence) {
+    const cleanDNA = dnaSequence.replace(/\s/g, '').toUpperCase();
+    const gcCount = (cleanDNA.match(/[GC]/g) || []).length;
+    return (gcCount / cleanDNA.length * 100);
+}
+
 function calculateOverlapTm(sequence) {
     // simplified tm calculation for short sequences
     const cleanSeq = sequence.replace(/\s/g, '').toUpperCase();

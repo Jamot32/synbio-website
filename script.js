@@ -111,7 +111,7 @@ function setupStandardCurveTabs() {
 
 // PCR TAB SWITCHING
 function setupPCRCalculatorTabs() {
-    const pcrCard = document.querySelector('.calculator-card:nth-child(6)');
+    const pcrCard = document.querySelector('.calculator-card:nth-child(5)');
     if (!pcrCard) return;
 
     pcrCard.querySelectorAll('.calc-option').forEach(option => {
@@ -137,7 +137,7 @@ function setupPCRCalculatorTabs() {
 
 // RESTRICTION ENZYME TAB SWITCHING
 function setupRestrictionEnzymeTabs() {
-    const enzymeCard = document.querySelector('.calculator-card:nth-child(7)');
+    const enzymeCard = document.querySelector('.calculator-card:nth-child(6)');
     if (!enzymeCard) return;
 
     enzymeCard.querySelectorAll('.calc-option').forEach(option => {
