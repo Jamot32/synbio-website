@@ -1,7 +1,6 @@
 // gibson
 
 
-
 let gibsonFragmentCounter = 0;
 
 function calculateMolarConcentration(ngPerUl, basePairs) {
@@ -125,7 +124,18 @@ function removeGibsonFragment(fragmentId) {
 
 // main gibson calc
 function calculateGibson() {
-    const activeCalc = document.querySelector('.calc-option.active');
+    const gibsonCard = document.querySelector('.calculator-card:has(#gibson-basic-calc)');
+    if (!gibsonCard) {
+        console.error("Gibson calculator card not found");
+        return;
+    }
+
+    const activeCalc = gibsonCard.querySelector('.calc-option.active');
+    if (!activeCalc) {
+        console.error("No active calculation type selected");
+        return;
+    }
+    
     const activeType = activeCalc.dataset.type;
 
     switch (activeType) {
@@ -143,6 +153,9 @@ function calculateGibson() {
 
 function calculateBasicGibson() {
     // get vector inputs
+
+
+
     const vectorName = document.getElementById('vector-name').value.trim() || 'Vector';
     const vectorLength = parseFloat(document.getElementById('vector-length').value);
     const vectorConc = parseFloat(document.getElementById('vector-concentration').value);
@@ -253,6 +266,7 @@ function calculateBasicGibson() {
     formula += `Assembly mix: 50% of total reaction volume`;
 
     displayGibsonResult(output, formula);
+    return {output, formula};;
 }
 
 function calculateOverlapAnalysis() {
@@ -377,11 +391,32 @@ function generateGibsonProtocol() {
    • Transform immediately or store at -20°C`;
     }
 
-    document.getElementById('protocol-output').innerHTML = protocol;
-
-    const output = `<button class="copy-protocol-btn" onclick="copyToClipboard(\`${protocol}\`)">Copy Protocol</button>`;
+    const escapedProtocol = protocol.replace(/`/g, '\\`');
+    
+    const output = `<div class="protocol-output" style="white-space: pre-wrap;">${protocol}</div>
+                    <button class="copy-protocol-btn" onclick="copyToClipboard(\`${escapedProtocol}\`)">Copy Protocol</button>`;
 
     displayGibsonResult(output, '');
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Protocol copied to clipboard!');
+    }).catch(err => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            alert('Protocol copied to clipboard!');
+        } catch (error) {
+            alert('Failed to copy protocol');
+        }
+        document.body.removeChild(textarea);
+    });
 }
 
 function displayGibsonResult(output, formula) {
