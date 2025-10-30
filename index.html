@@ -272,13 +272,13 @@
         <div class="calculator-card">
           <h2>Gibson Assembly Calculator</h2>
           <div class="calculator-type">
-            <div class="calc-option active" data-type="gibson-basic">
+            <div class="calc-option active" data-type="gibson-basic" data-card="gibson">
               Basic Assembly
             </div>
-            <div class="calc-option" data-type="gibson-overlap">
+            <div class="calc-option" data-type="gibson-overlap" data-card="gibson">
               Overlap Designer
             </div>
-            <div class="calc-option" data-type="gibson-protocol">
+            <div class="calc-option" data-type="gibson-protocol" data-card="gibson">
               Protocol Generator
             </div>
           </div>
@@ -530,13 +530,13 @@
         <div class="calculator-card">
           <h2>PCR Calculator</h2>
           <div class="calculator-type">
-            <div class="calc-option active" data-type="primer-design">
+            <div class="calc-option active" data-type="primer-design" data-card="pcr">
               Primer Design
             </div>
-            <div class="calc-option" data-type="primer-quality">
+            <div class="calc-option" data-type="primer-quality" data-card="pcr">
               Quality Check
             </div>
-            <div class="calc-option" data-type="master-mix">Master Mix</div>
+            <div class="calc-option" data-type="master-mix" data-card="pcr">Master Mix</div>
             "
           </div>
 
@@ -651,7 +651,10 @@
           </div>
 
           <div
-            id="primer-quality-calc" class="pcr-sections" style="display: none">
+            id="primer-quality-calc"
+            class="pcr-sections"
+            style="display: none"
+          >
             <div class="input-group">
               <label>Forward Primer Sequence</label>
               <textarea
@@ -728,7 +731,7 @@
 
             <div id="master-mix-results" style="margin-top: 20px"></div>
           </div>
-          <button onclick="designPrimers()">Calculate</button>
+          <button onclick="calculatePCR()">Calculate</button>
           <div id="pcr-result" class="result"></div>
         </div>
 

@@ -479,7 +479,7 @@ function checkPrimerQuality() {
     output += `<p><strong>Complementary bases:</strong> ${primerDimer.score}</p>`;
     output += `<p><strong>Consecutive matches:</strong> ${primerDimer.consecutiveMatches}</p>`;
     if (primerDimer.status !== 'good') {
-        output += `<p style="color: #DC3545; font-size: 13px;"><em>Primers may form dimers. Consider redesigning if PCR fails.</em></p>`;
+        output += `<p style="color: #DC3545; font-size: 13px;"><em>Primers may form dimers.</em></p>`;
     }
     output += `</div>`;
     
@@ -533,7 +533,7 @@ function checkPrimerQuality() {
     output += `<p style="font-size: 13px; color: #6c757d;">Reverse Tm</p>`;
     output += `</div>`;
     output += `<div style="text-align: center;">`;
-    output += `<p style="font-size: 24px; font-weight: 600; color: ${tmDifference <= 5 ? '#28a745' : '#DC3545'}; margin: 0;">${tmDifference.toFixed(1)}°C</p>`;
+    output += `<p style="font-size: 24px; font-weight: 600; color: ${tmDifference <= 5 ? '#5B6B9E' : '#cd6c43'}; margin: 0;">${tmDifference.toFixed(1)}°C</p>`;
     output += `<p style="font-size: 13px; color: #6c757d;">Difference</p>`;
     output += `</div>`;
     output += `</div>`;
@@ -660,8 +660,8 @@ function calculateMasterMix() {
     output += `</table>`;
     output += `</div>`;
     
-    output += `<div style="background: #FFF8E1; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #FFC107;">`;
-    output += `<h5 style="color: #5B6B9E; margin-top: 0;">📋 Instructions:</h5>`;
+    output += `<div style="background: #D9967A; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #FFC107;">`;
+    output += `<h5 style="color: #5B6B9E; margin-top: 0;">Instructions:</h5>`;
     output += `<ol style="margin: 10px 0; padding-left: 20px; line-height: 1.8;">`;
     output += `<li>Mix all master mix components (excluding template DNA) in a tube</li>`;
     output += `<li>Vortex gently and spin down briefly</li>`;
@@ -670,26 +670,25 @@ function calculateMasterMix() {
     output += `<li>Mix by pipetting and spin down</li>`;
     output += `<li>Place in thermal cycler</li>`;
     output += `</ol>`;
-    output += `<p style="font-size: 13px; color: #856404; margin: 0;"><strong>💡 Tip:</strong> Keep all reagents on ice. The ${extraPercent}% overage accounts for pipetting loss.</p>`;
+    output += `<p style="font-size: 13px; color: #CD6C43; margin: 0;"><strong> Remember:</strong> Keep all reagents on ice. The ${extraPercent}% overage accounts for pipetting loss.</p>`;
     output += `</div>`;
     
     document.getElementById('master-mix-results').innerHTML = output;
 }
 
-function handlePCRCalculation() {
-    const pcrCard = document.querySelectorAll('.calculator-card')[5]; // PCR is 6th card
-    if (!pcrCard) return;
-    
-    const activeTab = pcrCard.querySelector('.calc-option.active');
-    if (!activeTab) return;
-    
-    const type = activeTab.dataset.type;
-    
-    if (type === 'primer-design') {
-        designPrimers();
-    } else if (type === 'primer-quality') {
-        checkPrimerQuality();
-    } else if (type === 'master-mix') {
-        calculateMasterMix();
+function calculatePCR() {
+    const activeCalc = document.querySelector('.calc-option[data-card="pcr"].active');
+    const activeType = activeCalc.dataset.type;
+
+    switch (activeType) {
+        case 'primer-design':
+            designPrimers();
+            break;
+        case 'primer-quality':
+            checkPrimerQuality();
+            break;
+        case 'master-mix':
+            calculateMasterMix();
+            break;
     }
 }
